@@ -1,0 +1,111 @@
+{
+    "inputs": {
+        "displacement": {"size": [64,64,1]},
+        "displacement_1": {"size": [64,64,1]}
+    },
+    "outputs": ["delta_volume", "depth"],
+    
+    "operations": {
+
+        "resnet_block_1": {
+            "module": "resnet_block",
+            "parameters": {"filters": [8, 8]}
+        },
+        "resnet_block_2": {
+            "module": "resnet_block",
+            "parameters": {"filters": [8, 8]}
+        },
+        "resnet_block_3": {
+            "module": "resnet_block",
+            "parameters": {"filters": [8, 8]}
+        },
+        "resnet_block_4": {
+            "module": "resnet_block",
+            "parameters": {"filters": [8, 8]}
+        },
+        "resnet_block_5": {
+            "module": "resnet_block",
+            "parameters": {"filters": [16, 16]}
+        },
+        "resnet_block_6": {
+            "module": "resnet_block",
+            "parameters": {"filters": [16, 16]}
+        },
+
+        "denses_1": {
+            "module": "denses",
+            "parameters": {"filters": [8, 1]}
+        },
+        "denses_2": {
+            "module": "denses",
+            "parameters": {"filters": [8, 1]}
+        },
+
+        "down_sample": {"module": "max_pooling"},
+
+        "concatenation": {"module": "concatenation"},
+
+        "relu": {
+            "module": "activation",
+            "parameters": {"activation": "relu"}
+        },
+        "delta_volume": {
+            "module": "activation",
+            "parameters": {"activation": "relu"}
+        },
+        "depth": {
+            "module": "activation",
+            "parameters": {"activation": "relu"}
+        }
+    },
+
+    "branches": [
+        {
+            "x_name": "displacement", 
+            "y_name": "middle_start_1",
+            "operations": [
+                "resnet_block_1",
+                "relu",
+                "down_sample", 
+                "resnet_block_2", 
+                "relu",
+                "down_sample"
+            ]
+        },
+        {
+            "x_name": "displacement_1", 
+            "y_name": "middle_start_2",
+            "operations": [
+                "resnet_block_3",
+                "relu",
+                "down_sample", 
+                "resnet_block_4", 
+                "relu",
+                "down_sample"
+            ]
+        },
+        {
+            "x_name": ["middle_start_1", "middle_start_2"], 
+            "y_name": "middle_end",
+            "operations": [
+                "concatenation",
+                "resnet_block_5", 
+                "relu",
+                "down_sample", 
+                "resnet_block_6", 
+                "relu",
+                "down_sample"
+            ]
+        },
+        {
+            "x_name": "middle_end", 
+            "y_name": "delta_volume",
+            "operations": ["denses_1", "delta_volume"]
+        },
+        {
+            "x_name": "middle_end",
+            "y_name": "depth",
+            "operations": ["denses_2", "depth"]
+        }
+    ]
+}

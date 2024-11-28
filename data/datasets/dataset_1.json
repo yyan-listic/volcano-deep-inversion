@@ -1,0 +1,8 @@
+{
+    "areas": ["C84-17"],
+    "rasters": {
+        "slope": "data/rasters/slope_swissAlti3d.tif", 
+        "ice_thickness": "data/rasters/IceThickness.tif", 
+        "ice_velocity_magnitude": "data/rasters/V_RGI-11_2021July01.tif"
+    }
+}

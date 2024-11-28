@@ -1,0 +1,191 @@
+{
+    "architecture": "resnet",
+
+    "inputs": [
+        "ice_velocity_x",
+        "ice_velocity_y",
+        "slope",
+        "hypsometry"
+    ],
+
+    "outputs": [
+        "ice_thickness"
+    ],
+
+    "operations": {
+            "ice_velocity_x": {
+                "module": "input",
+                "parameters": {
+                    "size": [10,10,1]
+                }
+            },
+            "ice_velocity_y": {
+                "module": "input",
+                "parameters": {
+                    "size": [10,10,1]
+                }
+            },
+            "slope": {
+                "module": "input",
+                "parameters": {
+                    "size": [40, 40, 1]
+                }   
+            },
+            "hypsometry": {
+                "module": "input",
+                "parameters": {
+                    "size": [40, 40, 1]
+                }
+            },
+            
+            "resnet_block_1": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+            "resnet_block_11": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+            "resnet_block_2": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+            "resnet_block_3": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+            "resnet_block_4": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+            "resnet_block_5": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+            "resnet_block_6": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+            "resnet_block_7": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+            "resnet_block_8": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [32, 32]
+                }
+            },
+            "resnet_block_9": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [64, 64]
+                }
+            },
+            "resnet_block_10": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [64, 64]
+                }
+            },
+
+            "dense": {
+                "module": "dense",
+                "parameters": {
+                    "filters": [256, 1],
+                    "last_activation": "relu"
+                }
+            },
+
+            "down_sample_1": {
+                "module": "max_pooling",
+                "parameters": {
+                    "scale": 2
+                }
+            },
+            "down_sample_2": {
+                "module": "max_pooling",
+                "parameters": {
+                    "scale": 2
+                }
+            },
+            "down_sample_3": {
+                "module": "max_pooling",
+                "parameters": {
+                    "scale": 2
+                }
+            },
+            "down_sample_4": {
+                "module": "max_pooling",
+                "parameters": {
+                    "scale": 2
+                }
+            },
+            "down_sample_5": {
+                "module": "max_pooling",
+                "parameters": {
+                    "scale": 2
+                }
+            },
+
+            "fusion": {
+                "module": "concatenation",
+                "parameters": {}
+            }
+    },
+
+    "branches": [
+        ["ice_velocity_x", "fusion"],
+        ["ice_velocity_y", "fusion"],
+        ["slope", "fusion"],
+        ["hypsometry", "fusion"],
+        ["fusion", "resnet_block_8"],
+        ["resnet_block_8", "ice_thickness"]
+    ],
+
+    "graph": {
+        "ice_velocity_x": "resnet_block_1",
+        "resnet_block_1": "fusion",
+        
+        "ice_velocity_y": "resnet_block_11",
+        "resnet_block_11": "fusion",
+
+        "slope": "resnet_block_2",
+        "resnet_block_2": "down_sample_1",
+        "down_sample_1": "resnet_block_3",
+        "resnet_block_3": "down_sample_2",
+        "down_sample_2": "resnet_block_4",
+        "resnet_block_4": "fusion",
+
+        "hypsometry": "resnet_block_5",
+        "resnet_block_5": "down_sample_3",
+        "down_sample_3": "resnet_block_6",
+        "resnet_block_6": "down_sample_4",
+        "down_sample_4": "resnet_block_7",
+        "resnet_block_7": "fusion",
+
+        "fusion": "resnet_block_8",
+        
+        "resnet_block_8": "resnet_block_9",
+        "resnet_block_9": "down_sample_5",
+        "down_sample_5": "resnet_block_10",
+        "resnet_block_10": "dense",
+        "dense": "ice_thickness"
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "model": "resnet_500",
+    
+    "training_dataset": "dataset_1",
+    "validation_dataset": "dataset_2",
+    "test_dataset": "dataset_3",
+
+    "epochs": 50,
+
+    "area_mode": true,
+    
+    "optimizer":"adam",
+    
+    "callbacks":[],
+    "losses":[],
+    "metrics":[],
+    
+    "seed":null
+}

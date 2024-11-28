@@ -1,0 +1,23 @@
+{
+    "model": "resnet_mogi",
+    "dataset": "mogi_dataset_incidence",
+    "inputs": ["displacement"],
+    "outputs": ["delta_volume", "depth"],
+    "split": [0.7, 0.3],
+    "sizes": [1000, 500, 500],
+    "epochs": 50,
+    "batch_size": 32,
+    "optimizer": "adam",
+    "learning_rate": 1e-4,
+    "additional_callbacks": [
+        ["reduce_on_plateau", {"patience": 8}]
+    ],
+    "losses": {
+        "depth": "mae",
+        "delta_volume": "mae"
+    },
+    "metrics": {
+        "depth": ["mse", "mre"],
+        "delta_volume": ["mse", "mre"]
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "type": "generated",
+    "generation_type": "mogi",
+    "fixed": {
+        "azimuth": 0.0,
+        "incidence": 0.33,
+        "x_res": 0.1,
+        "y_res": 0.1,
+        "azimuth_1": 0.0,
+        "incidence_1": 0.33,
+        "x_res_1": 0.2,
+        "y_res_1": 0.2,
+        "x": 0.0,
+        "y": 0.0,
+        "noise": false
+    },
+    
+    "varyings": {
+        "depth": [[0.2, 0.4], [0.85, 0.95]],
+        "delta_volume": [[0.2, 0.4], [0.85, 0.95]]
+    },
+
+    "distributions": {
+        "depth": {
+            "type": "log_normal",
+            "parameters": {
+                "mu": 0,
+                "sigma": 1
+            }
+        },
+        "delta_volume": {
+            "type": "log_normal",
+            "parameters": {
+                "mu": 0,
+                "sigma": 1
+            }
+        }
+    }
+}

@@ -1,0 +1,101 @@
+{
+    "architecture": "resnet",
+
+    "operations": {
+            "displacement": {
+                "module": "input",
+                "parameters": {
+                    "size": [64,64,1]
+                }
+            },
+
+            "resnet_block_1": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [8, 8]
+                }
+            },
+            "resnet_block_2": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [8, 8]
+                }
+            },
+            "resnet_block_3": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+            "resnet_block_4": {
+                "module": "resnet_block",
+                "parameters": {
+                    "filters": [16, 16]
+                }
+            },
+
+            "denses_1": {
+                "module": "denses",
+                "parameters": {
+                    "filters": [8, 1],
+                    "last_activation": "relu",
+                    "last_name": "delta_volume"
+                }
+            },
+            "denses_2": {
+                "module": "denses",
+                "parameters": {
+                    "filters": [8, 1],
+                    "last_activation": "relu",
+                    "last_name": "depth"
+                }
+            },
+
+            "down_sample_1": {
+                "module": "max_pooling",
+                "parameters": {
+                    "scale": 2
+                }
+            },
+            "down_sample_2": {
+                "module": "max_pooling",
+                "parameters": {
+                    "scale": 2
+                }
+            },
+            "down_sample_3": {
+                "module": "max_pooling",
+                "parameters": {
+                    "scale": 2
+                }
+            },
+            "down_sample_4": {
+                "module": "max_pooling",
+                "parameters": {
+                    "scale": 2
+                }
+            }
+    },
+
+    "branches": [
+        ["displacement", "down_sample_4"],
+        ["down_sample_4", ["denses_1", "denses_2"]],
+        ["denses_1", "delta_volume"],
+        ["denses_2", "depth"]
+    ],
+
+    "graph": {
+        "displacement": "resnet_block_1",
+        "resnet_block_1": "down_sample_1",
+        "down_sample_1": "resnet_block_2",
+        "resnet_block_2": "down_sample_2",
+        "down_sample_2": "resnet_block_3",
+        "resnet_block_3": "down_sample_3",
+        "down_sample_3": "resnet_block_4",
+        "resnet_block_4": "down_sample_4",
+        
+        "denses_1": "delta_volume",
+
+        "denses_2": "depth"
+    }
+}

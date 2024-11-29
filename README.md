@@ -14,7 +14,7 @@ This project is free to use. To get started, you’ll need:
 
 ## Acknowledgements
 
-For synthetic volcanic deformation based on the **Mogi model**, the Python code was adapted from a MATLAB implementation used in this paper [1] : https://www.sciencedirect.com/science/article/abs pii/S003442571930183X
+For synthetic volcanic deformation based on the **Mogi model**, the Python code was adapted from a MATLAB implementation used in this paper [1] : https://www.sciencedirect.com/science/article/abspii/S003442571930183X
 
 [1] N. Anantrasirichai, J. Biggs, F. Albino, D. Bull, A deep learning approach to detecting volcano deformation from satellite imagery using synthetic datasets, Remote Sensing of Environment, 230, 2019
 

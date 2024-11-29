@@ -8,14 +8,13 @@ A project to enable the inversion of geophysical parameters of volcanic deformat
 
 This project is free to use. To get started, you’ll need:
 - **Python 3** and the libraries listed in `src/importation`.
-- **Qanat** ([documentation here](https://ammarmian.github.io/qanat/)).
 - A text editor to create and edit JSON files.
 
 ---
 
 ## Acknowledgements
 
-This work was funded by **ANR**, extensively tested, and executed on the **MUST platform**. The project utilizes the Qanat tool developed by **Dr. Mian**. For synthetic volcanic deformation based on the **Mogi model**, the Python code was adapted from a MATLAB script.
+For synthetic volcanic deformation based on the **Mogi model**, the Python code was adapted from a MATLAB script.
 
 ---
 

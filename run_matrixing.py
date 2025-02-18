@@ -10,7 +10,7 @@ args = parser.parse_args()
 
 infer_matrix(
     args.training_run,
-    "mogi_multi_attention",
+    "mogi_standard",
     int(args.seed),
     128,
     args.storage_path,

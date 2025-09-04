@@ -1,6 +1,6 @@
 # Volcano Deep Inversion
 
-A project to enable the inversion of geophysical parameters of volcanic deformation using Deep Learning methods. Managed with Qanat, this project also includes Python-adapted functions for generating synthetic volcanic deformation data for training purposes.
+A project to enable the estimation of geophysical parameters of a volcano model from surface deformation data using Deep Learning methods. Managed with Qanat, this project also includes Python-adapted functions for generating synthetic volcanic deformation data for training purposes.
 
 ---
 
@@ -14,7 +14,7 @@ This project is free to use. To get started, you’ll need:
 
 ## Acknowledgements
 
-For synthetic volcanic deformation based on the **Mogi model**, the Python code was adapted from the MATLAB implementation described in this [paper](https://www.sciencedirect.com/science/article/pii/S003442571930183X) [1].
+For synthetic volcanic deformation simulations based on the **Mogi model**, the Python code was adapted from the MATLAB implementation described in this [paper](https://www.sciencedirect.com/science/article/pii/S003442571930183X) [1].
 
 [1] N. Anantrasirichai, J. Biggs, F. Albino, D. Bull, A deep learning approach to detecting volcano deformation from satellite imagery using synthetic datasets, Remote Sensing of Environment, 230, 2019
 
@@ -35,7 +35,7 @@ This step involves writing several JSON files to specify configurations for trai
 
 #### Dataset Description
 
-Datasets should be saved in the `data/datasets` directory. As of now, the following variables must be included:
+Datasets should be saved in the `data/datasets` directory. The following variables must be included:
 
 ```json
 {
@@ -49,7 +49,7 @@ Datasets should be saved in the `data/datasets` directory. As of now, the follow
 
 #### Model Description
 
-To build your model, you are currently limited to modules listed in the `modules_table` variable in `src/modules.py`. Guidelines are provided to help expand this functionality if needed. Once familiar, write your model’s configuration as a JSON file and save it in `data/models`. Each application requires its own model description.
+To build your model, you are currently limited to modules listed in the `modules_table` variable in `src/modules.py`. Guidelines are provided to help expand this functionality if needed. Once familiar with, write your model’s configuration as a JSON file and save it in `data/models`. Each application requires its own model description.
 
 The following variables must be defined:
 
